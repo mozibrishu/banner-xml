@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.banner {
+    width: 300px;
+    height: 250px;
+    background-color: #E2DCC8;
+    padding: 5px;
+}
+
+#name,
+#email,
+#mobile,
+#division {
+    background: rgba(255, 255, 255, .1);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #e8eeef;
+    color: black;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+    margin-bottom: 6px;
+}
+
+fieldset {
+    border: 1px solid #495C83;
+}
+
+.error {
+    outline: 1px solid red !important;
+}
+
+legend {
+    font-size: large;
+    font-weight: 800;
+    color: #495C83;
+}
+
+input[type="submit"] {
+    position: relative;
+    display: block;
+    color: whitesmoke;
+    margin: 0 auto;
+    background: tomato;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#division-label {
+    color: #495C83;
+}
+
+.disabled {
+    background-color: grey !important;
+    pointer-events: none;
+}
+
+.enabled {
+    pointer-events: stroke;
+}
+
+.container {
+    margin: auto;
+}
+
+#errorCheck{
+    color: red;
+}
