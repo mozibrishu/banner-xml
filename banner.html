@@ -11,7 +11,7 @@
 
 <body>
     <div class="banner">
-        <form action="#" method="post" id="form">
+        <form action="" id="form" onsubmit="formSubmission(e)">
             <fieldset>
                 <legend>User Information</legend>
                 <input type=" text" id="name" name="name" required placeholder="Your Name *" onkeyup="checkName()"><br>
@@ -31,9 +31,10 @@
                 </select>
                 <br>
                 
-                <input type="submit" value="Submit" id="submitBtn" name="submit" class="disabled">
+                <input type="submit" value="Submit" id="submitBtn" name="submit" class="disabled" >
             </fieldset>
         </form>
+        <h1 id="errorsubmission"></h1>
     </div>
     <script src="banner.js"></script>
 </body>
