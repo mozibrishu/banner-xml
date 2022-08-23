@@ -42,7 +42,7 @@ function checkingMobile(mobileNum) {
             setInnerHtml("errorCheck","*Server Connection Failed<br>");
         }
     };
-    xhttp.open("GET", "http://localhost/assignment1/checkMobileNumber.php?q=" + mobileNum, true);
+    xhttp.open("GET", "http://localhost/banner-xml/checkMobileNumber.php?q=" + mobileNum, true);
     xhttp.send();
 }
 // Email
@@ -116,7 +116,7 @@ function submitForm(name, email, mobileNum, division) {
             setInnerHtml('banner',"<h3 id='failSubmission'>Submission Failed<br> Server Not Working</h3>");
         }
     };
-    var submitLink = 'http://localhost/assignment1/formSubmit.php?name=' + name + '&email=' + email + '&mobile=' + mobileNum + '&division=' + division;
+    var submitLink = 'http://localhost/banner-xml/formSubmit.php?name=' + name + '&email=' + email + '&mobile=' + mobileNum + '&division=' + division;
     xhttp.open("GET", submitLink, true);
     xhttp.send();
 }
