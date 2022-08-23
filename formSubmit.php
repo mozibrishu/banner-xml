@@ -1,3 +1,4 @@
+<?php header('Access-Control-Allow-Origin: *'); ?>
 <?php
 
 $name = $_GET['name'];
@@ -41,8 +42,7 @@ if($uniqueNumber){
       echo $db->lastErrorMsg();
    } else {
     $db->close();
-      // header("Location: ../assignment1/userInfo.php");
-      echo "done";
+      echo 'success';
       exit();
    }
    $db->close();

@@ -10,14 +10,15 @@
 </head>
 
 <body>
-    <div class="banner">
-        <form action="" id="form" onsubmit="formSubmission(e)">
+    <div class="banner" id="banner">
+        <form action="#" id="form">
             <fieldset>
                 <legend>User Information</legend>
                 <input type=" text" id="name" name="name" required placeholder="Your Name *" onkeyup="checkName()"><br>
-                <input type="email" id="email" name="email" required placeholder="Your Email *"><br>
+                <input type="email" id="email" name="email" required placeholder="Your Email *" onkeyup="checkEmail()"><br>
                 <input type="number" id="mobile" name="mobile" placeholder="Mobile Number *" onkeyup="checkMobileNumber()" required><br>
-                <small id="errorCheck"><br></small>
+                <small><b id="errorCheck"><br><b></small>
+                
                 <label for="division" id="division-label">Division:</label>
                 <select name="division" id="division">
                     <option value="Dhaka">Dhaka</option>
@@ -30,11 +31,9 @@
                     <option value="Sylhet">Sylhet</option>
                 </select>
                 <br>
-                
-                <input type="submit" value="Submit" id="submitBtn" name="submit" class="disabled" >
+                <button type="button" value="Submit" id="submitBtn" name="submit" class="disabled" onclick="submitOperation()">Submit</button>
             </fieldset>
         </form>
-        <h1 id="errorsubmission"></h1>
     </div>
     <script src="banner.js"></script>
 </body>

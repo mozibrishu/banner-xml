@@ -6,7 +6,7 @@
 .banner {
     width: 300px;
     height: 250px;
-    background-color: #E2DCC8;
+    background-color: #3BACB6;
     padding: 5px;
 }
 
@@ -30,7 +30,7 @@
 }
 
 fieldset {
-    border: 1px solid #495C83;
+    border: 1px solid #F9F3EE;
 }
 
 .error {
@@ -40,10 +40,10 @@ fieldset {
 legend {
     font-size: large;
     font-weight: 800;
-    color: #495C83;
+    color: #F9F3EE;
 }
 
-input[type="submit"] {
+#submitBtn {
     position: relative;
     display: block;
     color: whitesmoke;
@@ -74,6 +74,17 @@ input[type="submit"] {
     margin: auto;
 }
 
-#errorCheck{
+#errorCheck {
     color: red;
+}
+#submissionSuccess{
+    color: rgb(170, 243, 127);
+    text-align: center;
+    margin-top: 100px;
+}
+
+#failSubmission{
+    color: rgb(255, 107, 81);
+    text-align: center;
+    margin-top: 100px;
 }

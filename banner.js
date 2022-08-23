@@ -1,3 +1,24 @@
+//Mobile Number Pattern Check
+function checkMobileNumber() {
+    var mobileNum = getValue('mobile');
+    var mobilePattern = /^(?:\+88|88)?(01[3-9]\d{8})$/;
+
+    if (mobileNum.match(mobilePattern)) {
+        if (mobileNum.length > 11) {
+            checkingMobile(mobileNum.slice(-11));
+        } else {
+            checkingMobile(mobileNum);
+        }
+        return true;
+    } else {
+        setInnerHtml('errorCheck',"*Mobile Number is not valid<br>");
+        addClass('mobile', 'error');
+        addClass('submitBtn', 'disabled');
+        removeClass('submitBtn', 'enabled');
+        return false;
+    }
+}
+// Duplication Check
 function checkingMobile(mobileNum) {
     var xhttp;
     if (mobileNum == "") {
@@ -7,86 +28,110 @@ function checkingMobile(mobileNum) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if ('used' == this.responseText) {
-                document.getElementById("errorCheck").innerHTML = "*Mobile Number Already used<br>";
-                document.getElementById('mobile').classList.add("error");
-                document.getElementById('submitBtn').classList.add("disabled");
-                document.getElementById('submitBtn').classList.remove("enabled");
+                setInnerHtml('errorCheck',"*Mobile Number is Already used<br>");
+                addClass('mobile', 'error');
+                addClass('submitBtn', 'disabled');
+                removeClass('submitBtn', 'enabled');
             } else {
-                document.getElementById("errorCheck").innerHTML = "<br>";
-                document.getElementById('mobile').classList.remove("error");
-                document.getElementById('submitBtn').classList.remove("disabled");
-                document.getElementById('submitBtn').classList.add("enabled");
+                setInnerHtml('errorCheck',"<br>");
+                addClass('submitBtn', 'enabled');
+                removeClass('submitBtn', 'disabled');
+                removeClass('mobile', 'error');
             }
-
+        }else{
+            setInnerHtml("errorCheck","*Server Connection Failed<br>");
         }
     };
-    xhttp.open("GET", "checkMobileNumber.php?q=" + mobileNum, true);
+    xhttp.open("GET", "http://localhost/assignment1/checkMobileNumber.php?q=" + mobileNum, true);
     xhttp.send();
 }
+// Email
+function checkEmail() {
+    var emailText = document.getElementById('email').value;
+    var emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{1,8}$/;
 
-function checkMobileNumber() {
-    var mobileNum = document.getElementById('mobile').value;
-    var mobilePattern = /^(?:\+88|88)?(01[3-9]\d{8})$/;
-
-    if (mobileNum.match(mobilePattern)) {
-        checkingMobile(mobileNum);
+    if (emailText.match(emailPattern)) {
+        setInnerHtml('errorCheck',"<br>");
+        removeClass('email', 'error');
         return true;
     } else {
-        document.getElementById("errorCheck").innerHTML = "<br>";
-        document.getElementById('mobile').classList.add("error");
-        document.getElementById('submitBtn').classList.add("disabled");
-        document.getElementById('submitBtn').classList.remove("enabled");
+        setInnerHtml('errorCheck',"*Email Address Not valid. [some@thing.some]<br>");
+        addClass('email', 'error');
         return false;
     }
-
 }
-
+// Name
 function checkName() {
     var nameLength = document.getElementById('name').value.length;
     if (nameLength == 0) {
-        document.getElementById('name').classList.add("error");
+        addClass('name', 'error');
+        setInnerHtml('errorCheck',"*Name is not valid<br>");
         return false;
     } else {
-        document.getElementById('name').classList.remove("error");
+        removeClass('name', 'error');
+        setInnerHtml('errorCheck',"<br>");
         return true;
     }
 }
 
-function formSubmission(e) {
-    e.preventDefault();
-var name = document.getElementById("name").value;
-var email = document.getElementById("email").value;
-var mobileNum = document.getElementById("mobile").value;
-var division = document.getElementById("division").value;
-submitForm(name,email,mobileNum,division);
-return false;
+// Submit
+function submitOperation() {
+    var name = getValue('name');
+    var email = getValue('email');
+    var mobileNum = getValue('mobile');
+    var division = getValue('division');
+    var errorInfo;
+
+    if (mobileNum.length > 11) {
+        mobileNum = mobileNum.slice(-11);
+    }
+    if (!(checkName())) {
+        errorInfo = '*Name is not valid';
+    } else if (!(checkEmail())) {
+        errorInfo = "*Email is not Valid"
+    } else {
+        if (mobileNum.length > 11) {
+            submitForm(name, email, mobileNum.slice(-11), division);
+        } else {
+            submitForm(name, email, mobileNum, division);
+        }
+
+    }
 }
 
 function submitForm(name, email, mobileNum, division) {
     var xhttp;
-    if (mobileNum == "" || email =="" || name =="" || division == "") {
+    if (mobileNum == "" || email == "" || name == "" || division == "") {
         return;
     }
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("errorsubmission").innerHTML = this.responseText;
-            // if ('used' == this.responseText) {
-            //     document.getElementById("errorsubmission").innerHTML = "*Mobile Number Already used<br>";
-            //     document.getElementById('mobile').classList.add("error");
-            //     document.getElementById('submitBtn').classList.add("disabled");
-            //     document.getElementById('submitBtn').classList.remove("enabled");
-            // } else {
-            //     document.getElementById("errorCheck").innerHTML = "<br>";
-            //     document.getElementById('mobile').classList.remove("error");
-            //     document.getElementById('submitBtn').classList.remove("disabled");
-            //     document.getElementById('submitBtn').classList.add("enabled");
-            // }
-
+            if ('success' == this.responseText) {
+                setInnerHtml('banner',"<h3 id='submissionSuccess'>Successfully Inserted</h3>");
+            } else {
+                document.getElementById("banner").innerHTML = "<p>" + this.responseText + "</p>";
+            }
+        }else{
+            setInnerHtml('banner',"<h3 id='failSubmission'>Submission Failed<br> Server Not Working</h3>");
         }
     };
-    var submitLink = 'formSubmit.php?name='+ name + '&email='+ email+ '&mobile='+ mobileNum + '&division='+division;
-    console.log(submitLink);
+    var submitLink = 'http://localhost/assignment1/formSubmit.php?name=' + name + '&email=' + email + '&mobile=' + mobileNum + '&division=' + division;
     xhttp.open("GET", submitLink, true);
     xhttp.send();
+}
+
+// Add remove Get set
+function addClass(elementId, className) {
+    document.getElementById(elementId).classList.add(className);
+}
+function removeClass(elementId, className) {
+    document.getElementById(elementId).classList.remove(className);
+}
+
+function getValue(elementId){
+    return document.getElementById(elementId).value;
+}
+function setInnerHtml(elementId,text){
+    document.getElementById(elementId).innerHTML = text;
 }
